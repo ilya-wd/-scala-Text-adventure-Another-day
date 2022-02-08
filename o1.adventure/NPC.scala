@@ -6,6 +6,7 @@ class NPC(startingArea: Area, val name: String, val world: Adventure) {
 
   var setOfHints = Vector("What does that guy on the right do? https://youtu.be/670BrA4jUoM?t=145", "https://www.youtube.com/watch?v=KYhvVUwU__U", "https://en.wikipedia.org/wiki/Charismatic_Christianity", "https://www.verywellmind.com/say-no-to-people-making-demands-on-your-time-3145025", "omstart enough")
 
+  // Gives one of the random hints present in the game. For the sake of an extra challenge, the content of a hint is shuffled
   def giveRandomHint = Random.shuffle(setOfHints(Random.nextInt(setOfHints.size-1)))
 
   var NPCactivationWord = "interact with an NPC"
@@ -20,6 +21,7 @@ class NPC(startingArea: Area, val name: String, val world: Adventure) {
     targetArea.NPCArrived(this)
   }
 
+  // Ship captain hat alludes to the tekkari cap
   val description = "You see a lady in Red Cross clothes peddling fortune cookies out of a ship captain hat. \"Another NPC\" - you think.\n" +
     "If you interact with her, you get a cookie and a paper with fortune."
 
