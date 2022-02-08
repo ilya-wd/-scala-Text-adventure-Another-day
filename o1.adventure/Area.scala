@@ -4,13 +4,7 @@ import scala.collection.mutable
 import scala.collection.mutable.Buffer
 import scala.collection.mutable.Map
 
-/** The class `Area` represents locations in a text adventure game world. A game world
-  * consists of areas. In general, an "area" can be pretty much anything: a room, a building,
-  * an acre of forest, or something completely different. What different areas have in
-  * common is that players can be located in them and that they can have exits leading to
-  * other, neighboring areas. An area also has a name and a description.
-  * @param name         the name of the area
-  * @param description  a basic description of the area (typically not including information about items) */
+// The class `Area` represents locations in a text adventure game world.
 class Area(var name: String, var description: String, val world: Adventure) {
 
   private val neighbors = Map[String, Area]()
@@ -36,7 +30,7 @@ class Area(var name: String, var description: String, val world: Adventure) {
   var NPCword: Option[String] = None
 
 
-  // For Room location only
+  // For Room location only. Items automatically added to the player's "base" - their room
   def stashItem(item: Item) = {
     this.specialItems += item.name -> item
   }
@@ -46,7 +40,6 @@ class Area(var name: String, var description: String, val world: Adventure) {
     this.specialItemDescription = Option(newText)
     this.codeWord = Option(newItem.codeWord)
     this.puzzleHint = Option(newItem.hint)
-//    }
   }
 
   def contains(itemName: String) = {
@@ -70,7 +63,6 @@ class Area(var name: String, var description: String, val world: Adventure) {
   /** Adds an exit from this area to the given area. The neighboring area is reached by moving in
     * the specified direction from this area. */
   def setNeighbor(direction: String, neighbor: Area) = {
-//    this.neighbors += direction -> neighbor
     this.neighbors += neighbor.name -> neighbor
   }
 
@@ -92,6 +84,7 @@ class Area(var name: String, var description: String, val world: Adventure) {
 
   def hasBeers = beer
 
+  // If the NPC in an area, then a player can interact with it
   def NPCArrived(arrivedNPC: NPC) = {
     this.walkingNPC = Option(arrivedNPC)
     this.NPCword = Option(arrivedNPC.NPCactivationWord)
@@ -139,9 +132,6 @@ class Area(var name: String, var description: String, val world: Adventure) {
   def specialItemsDef = this.specialItems
 
   def codeWordDef = this.codeWord
-//    if (this.codeWord.isDefined)
-//      this.codeWord.get
-//    this.codeWord.getOrElse("you Never gonna type it in")
 
   def itemsNumber = this.specialItems.size
 
