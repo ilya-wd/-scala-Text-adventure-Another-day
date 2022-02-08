@@ -128,6 +128,7 @@ object AdventureGUI extends SimpleSwingApplication {
       "\n\nTry to remember how to get to your apartment from here. Watch the time.\n\n"
 
 
+   // In order to simulate the state of drunkeness, the text a player gets in GUI is shuffled after a character consumed too much beer
     def updateInfo(info: String) = {
 
       if (!this.game.isOver) {
