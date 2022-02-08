@@ -2,22 +2,14 @@ package o1.adventure
 
 import scala.util.Random
 
-
-/** The class `Adventure` represents text adventure games. An adventure consists of a player and
-  * a number of areas that make up the game world. It provides methods for playing the game one
-  * turn at a time and for checking the state of the game.
-  *
-  * N.B. This version of the class has a lot of "hard-coded" information which pertain to a very
-  * specific adventure game that involves a small trip through a twisted forest. All newly created
-  * instances of class `Adventure` are identical to each other. To create other kinds of adventure
-  * games, you will need to modify or replace the source code of this class. */
 class Adventure {
 
   /** The title of the adventure game. */
   val title = "The For Loop / Another Student Day"
 
-  // TODO - vector with areas? So that the NPC knows where to go/teleport - barring room/defaultLocation
-//class Area(var name: String, var description: String, val world: Adventure)
+  
+
+  // Most of this locations are based on real ones that one can find on campus. Names, however, are wordplays around the real names
   private val party        = new Area("Party", "You decide to go to a house party your friend throws.\nIt's been great fun! Many people, different stuff to do - heavy drinking, moderate drinking, light drinking. Board games, video games, beer-pong bong bong king kong, drunk fights, smoking on the balcony, karaoke, pole dancing, chatting and chanting, sleeping - everything you can imagine and even more.\nThe culmination of the party was chasing campus geese. You know, those dark and grey birds that you can see grazing on local fields during the day when it's warm. You and your friends always wanted to pet them, so you decided that tonight you'll finally do it, together.\nThe geese weren't happy. Luckily for them, you didn't manage to catch any of their brethren.\n\nIn the middle of the night you realized that something is wrong. Just recently you woke up with a heavy head, and decided to change your apartment as well as your life. But it's not what you're doing right now.\n\nRemember those lofty statements? For the kidz, for the country...\nBut now you are your old self. You betraying yourself, the kidz, and so on and so forth.\n\nHow further down can you fall? You won't find out, because the game is over.", this)
   private val room         = new Area("Room", "Your room. The place where you spend somewhat from a third to all of your waking hours.", this)
   private val DMTStreet    = new Area("DMT Street Housing", "Student housing area. Nothing particular. Just houses, parked cars, tagged trees, foiled windows.", this)
@@ -29,7 +21,8 @@ class Adventure {
   private val university   = new Area("University", "Alright, you made it to the university, congrats! You are a student (otherwise you wouldn't get an apartment on DMT) so you are supposed to study. That's exactly what you do here. You end up spending all your day on studying. \nNow your time for the day is up.", this)
   private val office       = new Area("Office", "Office Building of the company where you, hm, work at.", this)
 
-
+ 
+  // Setting the scene
           room.setNeighbors(Vector("dmt street" -> DMTStreet))
      DMTStreet.setNeighbors(Vector("the sweet swede eatery" -> eatery, "your apartment" -> room))
         eatery.setNeighbors(Vector("some area" -> extraArea, "lecorbusierinaukio" -> square, "dmt street" -> DMTStreet))
@@ -39,10 +32,8 @@ class Adventure {
     university.setNeighbors(Vector("lecorbusierinaukio" -> square))
     omegaBloke.setNeighbors(Vector("lecorbusierinaukio" -> square, "office" -> office))
 
-
-
-  // class Item(val name: String, val description: String, val answerText: String, var codeWord: String, var hint: String)
-
+ 
+  // Quest items that a player has to acquire to win the game, their names, descriptions, code phrases required to get an item, and hints to code phrases a player can activate
   // https://en.wikipedia.org/wiki/Rutabaga if you don't what it it is
   private val swedeCupItem = new Item("swede-carved cup (rutabaga)",
     "Name speaks for itself - a cup curved out of a swede. Not for drinking from, but for the memory.",
@@ -76,6 +67,7 @@ class Adventure {
     "no",
     "BEERHINT: Come on, this one is very simple: https://psychcentral.com/lib/learning-to-say-no")
 
+  // Adding quest items to the map
   eatery.addItem(swedeCupItem, "You go inside to eat some food with your mouth. It's kinda boring in there. Somewhat a lot of people inside, but you don't hear even the slightest sound of that mellow humming of a place where human beings are eating. Bummer.\nThere's a TV with some American late-night talk show. The host is a funny guy. He laughs a lot, makes faces. When he laughs he hits or slaps the table. Looks funny! He hits it so many times you get to wonder how he didn't crack the table.\nYou are the only one enjoying the show. All other visitors are silently eating their food.\nThere's something depressing in the whole scenery you witness. Why are people so sad and boring?\nYou want to be a funny person too! You want to make a difference!\nYou are sitting at your table now, what's your next move?")
   extraArea.addItem(medalItem, "")
   square.addItem(keyItem, "A grass field is crowded. On a make up scene there's Sir Mr. The President talking with people. People are lined up to the mic where they can ask a question to him.\nYuo watched something with him that was particularly joyful to you. You are trying to recall what it was to tell Sir Mr. The President about it. You know he gonna be happy to hear that.")
@@ -83,6 +75,7 @@ class Adventure {
   omegaBloke.addItem(silverTongueItem, "While walking through Omega Bloke you see a woman who invites you with a gesture. You have never seen her. It's difficult to tell her age. There's nothing particular about her at first glance, aside from the huge glittering cross at her chest.\nAs you start speaking, she asks you about the god and religion. Not a member of any particular confession nor an atheist, you chat with her. You agree with some her claims while questioning or opposing other.\n\nAs you two talk you realize she is extremely charming. You still don't know her name. Inwardly, you call her Charismatic Christian.\nShe tries you to convince you that miracles exist, you are doubtful.\n\"Then how do you call this\" - she says and starts something you have never seen or heard before. Funny thing is you can't really describe it. She utters something incessantly, but you can't understand it. Well, you understand something emotional level, but it all stays ineffable in our everyday language.\nOther people seem to be attracted by it. Soon there's crowd around Charismatic Christian. They look interested. Even more than that, they are enchanted for the reason unbeknownst to you.\n\nYour attitude is pretty straightforward - you don't understand what’s going on so you don't like it! And you want to end it, obviously.\n\n\nWhat language does she speak? She speaks..., speaks for..., speaks in... no idea. Do you have to speak in... a particular language? Can it be something else?\n\nIf you quickly look up the entomology of that word would it help? Or was ethnogenesis? Something like this certainly. You never had the aptitude for difficult words anyways but you know the direction.\n\nOne way or another, you feel you can figure out how to call what she’s doing.")
   office.addItem(mugItem, "On the way to the office you entertain yourself with thoughts about job and labour.\n\nYou heard somewhere that philosophers of ancient Greece thought that a free man (or a free woman to that end, we're in 21st century, not in antiquity anymore) is the one that doesn't have to work but rather chooses to work or not on whatever she or he deems important. Like philosophy, war, drinking or sports.\nThen you think those ancient greek philosophising guys were actually akin to super humans.\n\nTake Plato, for example. He wrestled, traveled, ran the first university in the area, wrote dystopian fiction and at the end became one of the founding fathers of Western civilization.\n\nNot bad, right? You could learn something from these folks.\n\n\nIn the office, you are greeted by a receptionist - Jumbo - a huge and tough guy, former MMA fighter and bouncer, with cauliflower ears. Very intimidating - you've always felt that if you tell him sth wrong he'll render you not long for this world. You're in different leagues, but it doesn't really matter.\n\nInterestingly, he is a somewhat of a mascot of HipAndNiceAndSuperPuperPlaceToWorkAt today - he always demonstrated so enthusiastic and loyal attitude to the company so that he became a pet of the management and most of your coworkers. Gossips are he even got a small number of company shares from owners.\n\nToday he seems to be very irritated, for some reason. You never saw him like that, but you've heard that few years ago he beat the crap out of one employee on the parking lot for no reason. The beaten one got generous compensation, while Jumbo got a warning and a voucher to a therapist.\nHe greets you with his grating voice: \"Hei, ready to work?\"\n\nWhat do you say?")
 
+  // Adding hinting item (beer) to the map + descriptions
   DMTStreet.addBeer("While you're walking down the street, a flock of sparrows hovering over you. You see something glistening among them. That something falls right in front of you. It's a can of Karqoc beer. In mint condition, aside from a small scratch. You never trusted sparrows. But it also never hurts to have a beer at hand.")
   eatery.addBeer("Today is the day when instead of water The Sweet Swede Eatery serves beer out of the taps. One pint per person, you can fill your empty water bottle.")
   square.addBeer("There's a working portable sauna next to the field. You go there for just 5 minutes and discover an unopened can of Karqoc inside. Someone probably forgot it. You know it's bad to take someone else's beer, but you still can do it.")
